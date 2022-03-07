@@ -20,8 +20,12 @@ const FormRecipt = ({
   submitReceipt,
   groups,
   handleInputChange,
-  handleChange,
+  changeGroup,
 }) => {
+  const handleChangeGroup = (newValue, actionMeta) => {
+    console.log('asdasd')
+    changeGroup(newValue, actionMeta)
+  }
   return (
     <>
       <CForm onSubmit={handleSubmit(onSubmit)} className="form">
@@ -124,16 +128,24 @@ const FormRecipt = ({
               render={({ field }) => {
                 return (
                   <CreatableSelect
-                    isClearable
-                    onChange={handleChange}
-                    onInputChange={handleInputChange}
+                    onChange={handleChangeGroup}
+                    options={groups}
                     className="reactSelect"
                     name="groupKala"
                     placeholder="گروه کالا"
-                    options={groups}
-                    formatCreateLabel={formatCreateLabel}
-                    {...field}
+                    // {...field}
                   />
+                  // <CreatableSelect
+                  //   isClearable
+                  //   onChange={handleChangeGroup}
+                  //   onInputChange={handleInputChange}
+                  //   className="reactSelect"
+                  //   name="groupKala"
+                  //   placeholder="گروه کالا"
+                  //   options={groups}
+                  //   formatCreateLabel={formatCreateLabel}
+                  //   {...field}
+                  // />
                 )
               }}
             />
@@ -146,14 +158,12 @@ const FormRecipt = ({
               render={({ field }) => {
                 return (
                   <CreatableSelect
-                    isClearable
-                    onChange={handleChange}
                     onInputChange={handleInputChange}
                     className="reactSelect"
                     name="modelKala"
                     placeholder="مدل کالا"
                     options={items}
-                    formatCreateLabel={formatCreateLabel}
+                    // formatCreateLabel={formatCreateLabel}
                     {...field}
                   />
                 )

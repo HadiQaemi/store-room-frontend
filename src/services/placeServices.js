@@ -25,7 +25,7 @@ export const placeServices = {
   getPlaces: async () => baseService('/places', 'GET'),
   //tools services
   getToolGroups: async () => baseService('/tools/groups', 'GET'),
-  getToolModels: async () => baseService('/tools/models', 'GET'),
+  getToolModels: async (group) => baseService(`/tools/models/${group}`, 'GET'),
   //recipts services
   addReceipt: async (data) => baseService('/receipts', 'POST', data),
 }

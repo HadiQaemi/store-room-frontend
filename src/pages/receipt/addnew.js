@@ -6,11 +6,13 @@ import ToolList from 'src/pages/receipt/components/ToolList'
 import FormRecipt from 'src/pages/receipt/components/FormRecipt'
 import { v4 as uuidv4 } from 'uuid'
 import CreatableSelect from 'react-select/creatable'
+import Swal from 'sweetalert2'
 
 const Addnew = () => {
   const [options, setOptions] = useState([])
   const [tools, setTools] = useState([])
   const [receipt, setReceipt] = useState([])
+  const [groupKala, setGroupKala] = useState([])
   const [toolGroups, setToolGroups] = useState([])
   const [toolModels, setToolModels] = useState([])
 
@@ -28,13 +30,6 @@ const Addnew = () => {
       })
       setToolGroups(groups)
     })
-    // placeServices.getToolModels().then((data) => {
-    //   let models = []
-    //   data.map((data, index) => {
-    //     models.push({ value: data.tool_model, label: data.tool_model })
-    //   })
-    //   setToolModels(models)
-    // })
   }, [])
   const onSubmit = (data) => {
     let item = {
@@ -43,7 +38,7 @@ const Addnew = () => {
       plaque: data.plaque,
       categoryKala: data.categoryKala,
       typeKala: data.typeKala,
-      groupKala: data.groupKala.label,
+      groupKala: groupKala,
       modelKala: data.modelKala.label,
       uuid: uuidv4(),
     }
@@ -59,42 +54,47 @@ const Addnew = () => {
   const submitReceipt = () => {
     const data = { receipt: receipt, tools: tools }
     placeServices.addReceipt(data).then((response) => {
-      console.log(response)
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'رسید ثبت شد',
+      })
+      setTools([])
+      setReceipt([])
     })
   }
-  const changeGroup = (e) => {
-    alert(e)
-    console.log(e)
-  }
-  const handleChange = (newValue, actionMeta) => {
-    console.group('Value Changed')
-    console.log(newValue)
-    console.log(`action: `)
-    console.groupEnd()
+  const changeGroup = (newValue, actionMeta) => {
+    // console.log(newValue.value)
+    setGroupKala(newValue.value)
+    placeServices.getToolModels(newValue.value).then((data) => {
+      let models = []
+      data.map((data, index) => {
+        models.push({ value: data.tool_model, label: data.tool_model })
+      })
+      setToolModels(models)
+    })
   }
   const removeItem = (id) => {
     let temp = tools.filter((q) => q.uuid != tools[id].uuid)
     setTools(temp)
   }
   const handleInputChange = (inputValue, actionMeta) => {
-    console.group('Input Changed')
-    console.log(inputValue)
-    console.log(`action:`)
-    console.log(actionMeta)
-    console.groupEnd()
+    // console.group('Input Changed')
+    // console.log(inputValue)
+    // console.log(`action:`)
+    // console.log(actionMeta)
+    // console.groupEnd()
   }
-  const colourOptions = [
-    { value: '1', label: 'Ocean', color: '#00B8D9', isFixed: true },
-    { value: '2', label: 'Blue', color: '#0052CC', isDisabled: true },
-    { value: '3', label: 'Purple', color: '#5243AA' },
-    { value: '4', label: 'Red', color: '#FF5630', isFixed: true },
-    { value: '5', label: 'Orange', color: '#FF8B00' },
-    { value: '6', label: 'Yellow', color: '#FFC400' },
-    { value: '7', label: 'Green', color: '#36B37E' },
-    { value: '8', label: 'Forest', color: '#00875A' },
-    { value: '9', label: 'Slate', color: '#253858' },
-    { value: '10', label: 'Silver', color: '#666666' },
-  ]
   const formatCreateLabel = (inputValue) => `جدید: ${inputValue}`
 
   return (
@@ -111,12 +111,11 @@ const Addnew = () => {
               control={control}
               handleInputChange={handleInputChange}
               formatCreateLabel={formatCreateLabel}
-              handleChange={handleChange}
+              changeGroup={changeGroup}
               onSubmit={onSubmit}
-              items={colourOptions}
+              items={toolModels}
               options={options}
               groups={toolGroups}
-              changeGroup={changeGroup}
               submitReceipt={submitReceipt}
             />
             <ToolList tools={tools} remove={removeItem} />
