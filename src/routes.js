@@ -57,7 +57,8 @@ const StoreRoom = React.lazy(() => import('./pages/place/StoreRoom'))
 const BankUint = React.lazy(() => import('./pages/place/BankUint'))
 const Branch = React.lazy(() => import('./pages/place/Branch'))
 const Other = React.lazy(() => import('./pages/place/Other'))
-const AddReceipt = React.lazy(() => import('./pages/receipt/addnew'))
+const AddReceipt = React.lazy(() => import('./pages/receipt/Addnew'))
+const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
 
 const routes = [
   { path: '/', exact: true, name: 'داشبورد' },
@@ -72,7 +73,7 @@ const routes = [
   { path: '/place/branch', name: 'شعبه', component: Branch, exact: true },
   { path: '/place/other', name: 'سایر', component: Other, exact: true },
   { path: '/receipt', name: 'رسید', component: Other, exact: true },
-  { path: '/receipt/list', name: 'لیست', component: Other, exact: true },
+  { path: '/receipt/list', name: 'لیست', component: ReceiptList, exact: true },
   { path: '/receipt/add', name: 'ثبت', component: AddReceipt, exact: true },
   { path: '/referred', name: 'حواله', component: Other, exact: true },
   { path: '/referred/list', name: 'لیست', component: Other, exact: true },

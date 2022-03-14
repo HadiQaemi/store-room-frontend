@@ -132,6 +132,7 @@ const FormRecipt = ({
                     options={groups}
                     className="reactSelect"
                     name="groupKala"
+                    formatCreateLabel={formatCreateLabel}
                     placeholder="گروه کالا"
                     // {...field}
                   />
@@ -163,7 +164,7 @@ const FormRecipt = ({
                     name="modelKala"
                     placeholder="مدل کالا"
                     options={items}
-                    // formatCreateLabel={formatCreateLabel}
+                    formatCreateLabel={formatCreateLabel}
                     {...field}
                   />
                 )
