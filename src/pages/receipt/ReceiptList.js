@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react'
-import { CButton, CCard, CCardBody, CCardHeader, CRow } from '@coreui/react'
+import React, { useEffect, useState } from 'react'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilAddressBook, cilDevices, cilTrash, cilViewColumn, cilViewModule } from '@coreui/icons'
+import { cilInfo, cilPen, cilPenNib, cilPrint, cilTrash } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
-import Swal from 'sweetalert2'
 import moment from 'moment-jalaali'
-import { fireSwal } from 'src/services/utils'
+import { fireSwalConfirmation } from 'src/services/utils'
+import ReactTooltip from 'react-tooltip'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -33,6 +44,8 @@ const Styles = styled.div`
 const ReceiptList = () => {
   const [Other, setOther] = React.useState([])
   const tempObject = { name: null, code: null, phone: null, address: null, id: null }
+  const [modal, setModal] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   const refresh = () => {
     placeServices.getReceipt([]).then((response) => {
@@ -46,20 +59,7 @@ const ReceiptList = () => {
         refresh()
       }, 300)
     }
-    fireSwal(action(id))
-    // Swal.fire({
-    //   title: 'در صورت حذف قابل بازیابی نمی باشد',
-    //   showCancelButton: true,
-    //   confirmButtonText: `تایید`,
-    //   cancelButtonText: `انصراف`,
-    // }).then(async (result) => {
-    //   if (result.isConfirmed) {
-    //     placeServices.removeOther(id)
-    //     setTimeout(() => {
-    //       refresh()
-    //     }, 300)
-    //   }
-    // })
+    fireSwalConfirmation(action(id))
   }
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const ReceiptList = () => {
       Header: 'تعداد کالا',
       accessor: 'tools',
       width: '10',
-      Cell: (row) => <>{row.row.original.tools[0].category}</>,
+      Cell: (row) => <>{row.row.original.toolsCount}</>,
     },
     {
       Header: 'عملیات',
@@ -117,32 +117,79 @@ const ReceiptList = () => {
       width: '10',
       Cell: (row) => (
         <>
-          <CButton color="danger" onClick={() => removeItem(row.row.original.id)} variant="ghost">
+          <CButton
+            color="danger"
+            data-tip="حذف"
+            onClick={() => removeItem(row.row.original.id)}
+            variant="ghost"
+          >
             <CIcon icon={cilTrash} size="xl" />
           </CButton>
-          <CButton color="info" onClick={() => removeItem(row.row.original.id)} variant="ghost">
-            <CIcon icon={cilDevices} size="xl" />
+          <CButton
+            color="info"
+            data-tip="مشاهده"
+            onClick={() => setVisible(!visible)}
+            variant="ghost"
+          >
+            <CIcon icon={cilInfo} size="xl" />
           </CButton>
-          <CButton color="success" onClick={() => removeItem(row.row.original.id)} variant="ghost">
-            <CIcon icon={cilAddressBook} size="xl" />
+          <CButton
+            color="primary"
+            data-tip="پرینت"
+            onClick={() => removeItem(row.row.original.id)}
+            variant="ghost"
+          >
+            <CIcon icon={cilPrint} size="xl" />
           </CButton>
+          <CButton
+            color="success"
+            data-tip="ویرایش"
+            onClick={() => removeItem(row.row.original.id)}
+            variant="ghost"
+          >
+            <CIcon icon={cilPen} size="xl" />
+          </CButton>
+          <ReactTooltip />
         </>
       ),
     },
   ]
+  const toggle = () => {
+    setModal(!modal)
+  }
   const data = [...Other]
-
   return (
-    <CCard className="mb-4">
-      <CCardHeader>لیست رسید</CCardHeader>
-      <CCardBody>
-        <CRow>
-          <Styles>
-            <CustomTable columns={columns} data={data} removeItem={removeItem} refresh={refresh} />
-          </Styles>
-        </CRow>
-      </CCardBody>
-    </CCard>
+    <>
+      <CButton onClick={() => setVisible(!visible)}>Launch demo modal</CButton>
+      <CModal visible={visible} onClose={() => setVisible(false)}>
+        <CModalHeader onClose={() => setVisible(false)}>
+          <CModalTitle>Modal title</CModalTitle>
+        </CModalHeader>
+        <CModalBody>Woohoo, you are reading this text in a modal!</CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="primary">Save changes</CButton>
+        </CModalFooter>
+      </CModal>
+      <CCard className="mb-4">
+        <CCardHeader>لیست رسید</CCardHeader>
+        <CCardBody>
+          <CRow>
+            <Styles>
+              <CustomTable
+                columns={columns}
+                data={data}
+                removeItem={removeItem}
+                refresh={refresh}
+              />
+            </Styles>
+          </CRow>
+        </CCardBody>
+        <ReactTooltip />
+      </CCard>
+    </>
   )
 }
 
