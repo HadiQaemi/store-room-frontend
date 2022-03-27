@@ -59,6 +59,7 @@ const Branch = React.lazy(() => import('./pages/place/Branch'))
 const Other = React.lazy(() => import('./pages/place/Other'))
 const AddReceipt = React.lazy(() => import('./pages/receipt/Addnew'))
 const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
+const ToolPrint = React.lazy(() => import('./pages/tool/Print'))
 
 const routes = [
   { path: '/', exact: true, name: 'داشبورد' },
@@ -78,6 +79,7 @@ const routes = [
   { path: '/referred', name: 'حواله', component: Other, exact: true },
   { path: '/referred/list', name: 'لیست', component: Other, exact: true },
   { path: '/referred/add', name: 'ثبت', component: Other, exact: true },
+  { path: '/tools/print', name: 'ثبت', component: ToolPrint, exact: true },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

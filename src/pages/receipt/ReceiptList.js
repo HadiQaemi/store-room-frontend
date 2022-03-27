@@ -4,15 +4,25 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
+  CCardText,
+  CCardTitle,
+  CCol,
   CModal,
   CModalBody,
   CModalFooter,
   CModalHeader,
   CModalTitle,
+  CNavLink,
   CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo, cilPen, cilPenNib, cilPrint, cilTrash } from '@coreui/icons'
+import { cilInfo, cilList, cilPen, cilPenNib, cilPrint, cilTrash } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
@@ -45,7 +55,10 @@ const ReceiptList = () => {
   const [Other, setOther] = React.useState([])
   const tempObject = { name: null, code: null, phone: null, address: null, id: null }
   const [modal, setModal] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const [visibleInfo, setVisibleInfo] = useState(false)
+  const [visiblePrint, setVisiblePrint] = useState(false)
+  const [toolPrint, setToolPrint] = useState({ tools: [], source: [], destination: [], holder: [] })
+  const [tools, setTools] = useState([])
 
   const refresh = () => {
     placeServices.getReceipt([]).then((response) => {
@@ -60,6 +73,15 @@ const ReceiptList = () => {
       }, 300)
     }
     fireSwalConfirmation(action(id))
+  }
+  const showTools = async (tool) => {
+    setVisibleInfo(!visibleInfo)
+    setTools(tool)
+  }
+  const showPrint = async (tool) => {
+    console.log(tool)
+    setVisiblePrint(!visiblePrint)
+    setToolPrint(tool)
   }
 
   useEffect(() => {
@@ -128,7 +150,7 @@ const ReceiptList = () => {
           <CButton
             color="info"
             data-tip="مشاهده"
-            onClick={() => setVisible(!visible)}
+            onClick={() => showTools(row.row.original.tools)}
             variant="ghost"
           >
             <CIcon icon={cilInfo} size="xl" />
@@ -136,7 +158,7 @@ const ReceiptList = () => {
           <CButton
             color="primary"
             data-tip="پرینت"
-            onClick={() => removeItem(row.row.original.id)}
+            onClick={() => showPrint(row.row.original)}
             variant="ghost"
           >
             <CIcon icon={cilPrint} size="xl" />
@@ -160,18 +182,113 @@ const ReceiptList = () => {
   const data = [...Other]
   return (
     <>
-      <CButton onClick={() => setVisible(!visible)}>Launch demo modal</CButton>
-      <CModal visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader onClose={() => setVisible(false)}>
-          <CModalTitle>Modal title</CModalTitle>
+      <CModal size="lg" visible={visibleInfo} onClose={() => setVisibleInfo(false)}>
+        <CModalHeader onClose={() => setVisibleInfo(false)}>
+          <CModalTitle>کالاها</CModalTitle>
         </CModalHeader>
-        <CModalBody>Woohoo, you are reading this text in a modal!</CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-          <CButton color="primary">Save changes</CButton>
-        </CModalFooter>
+        <CModalBody>
+          <CTable>
+            <CTableHead color="light">
+              <CTableRow>
+                <CTableHeaderCell scope="col">#</CTableHeaderCell>
+                <CTableDataCell>دسته بندی</CTableDataCell>
+                <CTableDataCell>پلاک</CTableDataCell>
+                <CTableDataCell>آمایش</CTableDataCell>
+                <CTableDataCell>شماره سریال</CTableDataCell>
+                <CTableDataCell>نوع</CTableDataCell>
+                <CTableDataCell>گروه</CTableDataCell>
+                <CTableDataCell>مدل</CTableDataCell>
+              </CTableRow>
+            </CTableHead>
+            <CTableBody>
+              {tools.map((item, index) => {
+                return (
+                  <CTableRow key={index}>
+                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                    <CTableDataCell>{item.category}</CTableDataCell>
+                    <CTableDataCell>{item.pelauqe}</CTableDataCell>
+                    <CTableDataCell>{item.amayesh}</CTableDataCell>
+                    <CTableDataCell>{item.serial_number}</CTableDataCell>
+                    <CTableDataCell>{item.type}</CTableDataCell>
+                    <CTableDataCell>{item.group}</CTableDataCell>
+                    <CTableDataCell>{item.model}</CTableDataCell>
+                  </CTableRow>
+                )
+              })}
+            </CTableBody>
+          </CTable>
+        </CModalBody>
+      </CModal>
+      <CModal fullscreen visible={visiblePrint} onClose={() => setVisiblePrint(false)}>
+        <CModalHeader onClose={() => setVisiblePrint(false)}>
+          <CModalTitle>کالاها</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          {moment(toolPrint.receipt, 'YYYY-M-D HH:mm:ss').endOf('jMonth').format('jYYYY/jM/jD')}
+          {JSON.stringify(toolPrint.receipt)}
+          <CRow>
+            <CCol sm={4}>
+              <CCard>
+                <CCardHeader>مبدا</CCardHeader>
+                <CCardBody>
+                  <CCardTitle>نام: {toolPrint.source.name}</CCardTitle>
+                  <CCardText>کد: {toolPrint.source.code}</CCardText>
+                  <CCardText>تلفن: {toolPrint.source.phone}</CCardText>
+                </CCardBody>
+              </CCard>
+            </CCol>
+            <CCol sm={4}>
+              <CCard>
+                <CCardHeader>نگهدارنده</CCardHeader>
+                <CCardBody>
+                  <CCardTitle>نام: {toolPrint.holder.name}</CCardTitle>
+                  <CCardText>کد: {toolPrint.holder.code}</CCardText>
+                  <CCardText>تلفن: {toolPrint.holder.phone}</CCardText>
+                </CCardBody>
+              </CCard>
+            </CCol>
+            <CCol sm={4}>
+              <CCard>
+                <CCardHeader>مقصد</CCardHeader>
+                <CCardBody>
+                  <CCardTitle>نام: {toolPrint.destination.name}</CCardTitle>
+                  <CCardText>کد: {toolPrint.destination.code}</CCardText>
+                  <CCardText>تلفن: {toolPrint.destination.phone}</CCardText>
+                </CCardBody>
+              </CCard>
+            </CCol>
+          </CRow>
+          <CTable>
+            <CTableHead color="light">
+              <CTableRow>
+                <CTableHeaderCell scope="col">#</CTableHeaderCell>
+                <CTableDataCell>دسته بندی</CTableDataCell>
+                <CTableDataCell>پلاک</CTableDataCell>
+                <CTableDataCell>آمایش</CTableDataCell>
+                <CTableDataCell>شماره سریال</CTableDataCell>
+                <CTableDataCell>نوع</CTableDataCell>
+                <CTableDataCell>گروه</CTableDataCell>
+                <CTableDataCell>مدل</CTableDataCell>
+              </CTableRow>
+            </CTableHead>
+            <CTableBody>
+              {toolPrint.tools.map((item, index) => {
+                return (
+                  <CTableRow key={index}>
+                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                    <CTableDataCell>{item.category}</CTableDataCell>
+                    <CTableDataCell>{item.pelauqe}</CTableDataCell>
+                    <CTableDataCell>{item.amayesh}</CTableDataCell>
+                    <CTableDataCell>{item.serial_number}</CTableDataCell>
+                    <CTableDataCell>{item.type}</CTableDataCell>
+                    <CTableDataCell>{item.group}</CTableDataCell>
+                    <CTableDataCell>{item.model}</CTableDataCell>
+                  </CTableRow>
+                )
+              })}
+            </CTableBody>
+          </CTable>
+        </CModalBody>
       </CModal>
       <CCard className="mb-4">
         <CCardHeader>لیست رسید</CCardHeader>
