@@ -1,7 +1,6 @@
-import { cilRecycle, cilTrash } from '@coreui/icons'
+import { cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
-  CButton,
   CTable,
   CTableBody,
   CTableDataCell,

@@ -17,7 +17,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useForm } from 'react-hook-form'
 import { authenticationServices } from 'src/services/authenticationServices'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUser } from 'src/state-managements/actions/userActions'
 import {
   setUserFailed,
@@ -28,14 +28,11 @@ import {
 const Login = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const user = useSelector((state) => state)
+  // const user = useSelector((state) => state)
   const { register, handleSubmit } = useForm()
   const onSubmit = async (data) => {
-    // const result = await loginThunk(dispatch, data)
-    // console.log(result)
-    // const result = await authenticationServices.login(data)
     dispatch(setUserStart())
-    const result = await authenticationServices
+    await authenticationServices
       .login(data)
       .then((response) => {
         dispatch(setUser(response))
@@ -45,7 +42,7 @@ const Login = () => {
         dispatch(setUserSucc(response))
         return response
       })
-      .then((response) => {
+      .then(() => {
         history.replace('/')
       })
       .catch((error) => {

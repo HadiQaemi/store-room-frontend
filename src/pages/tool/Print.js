@@ -30,7 +30,6 @@ const Styles = styled.div`
 `
 const Print = () => {
   const [Other, setOther] = React.useState([])
-  const tempObject = { name: null, code: null, phone: null, address: null, id: null }
 
   const refresh = () => {
     placeServices.getOthers([]).then((response) => {

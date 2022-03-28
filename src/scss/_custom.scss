@@ -105,3 +105,19 @@ hr{
 	color: #cf0f0f;
 	cursor: pointer;
 }
+.printDom{
+	padding: 20px;
+	direction: rtl;
+}
+.printDom .cardPrint{
+	width: 33%;
+	margin-bottom: 10px;
+}
+.printDom .printTools{
+	margin-top: 20px;
+}
+.printDom .printIcon{
+	left: 0px;
+	position: absolute;
+	margin-left: 20px;
+}

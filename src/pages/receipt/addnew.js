@@ -1,11 +1,10 @@
-import { CCard, CCardBody, CCardHeader, CCol, CContainer, CFormLabel } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CContainer } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { placeServices } from 'src/services/placeServices'
 import ToolList from 'src/pages/receipt/components/ToolList'
 import FormRecipt from 'src/pages/receipt/components/FormRecipt'
 import { v4 as uuidv4 } from 'uuid'
-import CreatableSelect from 'react-select/creatable'
 import Swal from 'sweetalert2'
 
 const Addnew = () => {
@@ -25,7 +24,7 @@ const Addnew = () => {
     })
     placeServices.getToolGroups().then((data) => {
       let groups = []
-      data.map((data, index) => {
+      data.map((data) => {
         groups.push({ value: data.tool_group, label: data.tool_group })
       })
       setToolGroups(groups)
@@ -85,7 +84,7 @@ const Addnew = () => {
     })
   }
   const removeItem = (id) => {
-    let temp = tools.filter((q) => q.uuid != tools[id].uuid)
+    let temp = tools.filter((q) => q.uuid !== tools[id].uuid)
     setTools(temp)
   }
   const handleInputChange = (inputValue, actionMeta) => {

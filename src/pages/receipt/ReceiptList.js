@@ -4,15 +4,10 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
-  CCardText,
-  CCardTitle,
-  CCol,
   CModal,
   CModalBody,
-  CModalFooter,
   CModalHeader,
   CModalTitle,
-  CNavLink,
   CRow,
   CTable,
   CTableBody,
@@ -22,13 +17,14 @@ import {
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo, cilList, cilPen, cilPenNib, cilPrint, cilTrash } from '@coreui/icons'
+import { cilInfo, cilPen, cilPrint, cilTrash } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
+import PrintComponent from './print/PrintComponent'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -53,8 +49,7 @@ const Styles = styled.div`
 `
 const ReceiptList = () => {
   const [Other, setOther] = React.useState([])
-  const tempObject = { name: null, code: null, phone: null, address: null, id: null }
-  const [modal, setModal] = useState(false)
+  // const [modal, setModal] = useState(false)
   const [visibleInfo, setVisibleInfo] = useState(false)
   const [visiblePrint, setVisiblePrint] = useState(false)
   const [toolPrint, setToolPrint] = useState({ tools: [], source: [], destination: [], holder: [] })
@@ -176,9 +171,9 @@ const ReceiptList = () => {
       ),
     },
   ]
-  const toggle = () => {
-    setModal(!modal)
-  }
+  // const toggle = () => {
+  //   setModal(!modal)
+  // }
   const data = [...Other]
   return (
     <>
@@ -224,70 +219,7 @@ const ReceiptList = () => {
           <CModalTitle>کالاها</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          {moment(toolPrint.receipt, 'YYYY-M-D HH:mm:ss').endOf('jMonth').format('jYYYY/jM/jD')}
-          {JSON.stringify(toolPrint.receipt)}
-          <CRow>
-            <CCol sm={4}>
-              <CCard>
-                <CCardHeader>مبدا</CCardHeader>
-                <CCardBody>
-                  <CCardTitle>نام: {toolPrint.source.name}</CCardTitle>
-                  <CCardText>کد: {toolPrint.source.code}</CCardText>
-                  <CCardText>تلفن: {toolPrint.source.phone}</CCardText>
-                </CCardBody>
-              </CCard>
-            </CCol>
-            <CCol sm={4}>
-              <CCard>
-                <CCardHeader>نگهدارنده</CCardHeader>
-                <CCardBody>
-                  <CCardTitle>نام: {toolPrint.holder.name}</CCardTitle>
-                  <CCardText>کد: {toolPrint.holder.code}</CCardText>
-                  <CCardText>تلفن: {toolPrint.holder.phone}</CCardText>
-                </CCardBody>
-              </CCard>
-            </CCol>
-            <CCol sm={4}>
-              <CCard>
-                <CCardHeader>مقصد</CCardHeader>
-                <CCardBody>
-                  <CCardTitle>نام: {toolPrint.destination.name}</CCardTitle>
-                  <CCardText>کد: {toolPrint.destination.code}</CCardText>
-                  <CCardText>تلفن: {toolPrint.destination.phone}</CCardText>
-                </CCardBody>
-              </CCard>
-            </CCol>
-          </CRow>
-          <CTable>
-            <CTableHead color="light">
-              <CTableRow>
-                <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                <CTableDataCell>دسته بندی</CTableDataCell>
-                <CTableDataCell>پلاک</CTableDataCell>
-                <CTableDataCell>آمایش</CTableDataCell>
-                <CTableDataCell>شماره سریال</CTableDataCell>
-                <CTableDataCell>نوع</CTableDataCell>
-                <CTableDataCell>گروه</CTableDataCell>
-                <CTableDataCell>مدل</CTableDataCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {toolPrint.tools.map((item, index) => {
-                return (
-                  <CTableRow key={index}>
-                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                    <CTableDataCell>{item.category}</CTableDataCell>
-                    <CTableDataCell>{item.pelauqe}</CTableDataCell>
-                    <CTableDataCell>{item.amayesh}</CTableDataCell>
-                    <CTableDataCell>{item.serial_number}</CTableDataCell>
-                    <CTableDataCell>{item.type}</CTableDataCell>
-                    <CTableDataCell>{item.group}</CTableDataCell>
-                    <CTableDataCell>{item.model}</CTableDataCell>
-                  </CTableRow>
-                )
-              })}
-            </CTableBody>
-          </CTable>
+          <PrintComponent toolPrint={toolPrint} />
         </CModalBody>
       </CModal>
       <CCard className="mb-4">
