@@ -91,18 +91,18 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'حواله',
-    to: '/referred',
+    to: '/transference',
     icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'لیست',
-        to: '/referred/list',
+        to: '/transference/list',
       },
       {
         component: CNavItem,
         name: 'ثبت حواله',
-        to: '/referred/add',
+        to: '/transference/add',
       },
     ],
   },

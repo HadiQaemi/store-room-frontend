@@ -1,4 +1,5 @@
 import React from 'react'
+import AddTransference from './pages/transference/AddTransference'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -76,10 +77,10 @@ const routes = [
   { path: '/receipt', name: 'رسید', component: Other, exact: true },
   { path: '/receipt/list', name: 'لیست', component: ReceiptList, exact: true },
   { path: '/receipt/add', name: 'ثبت', component: AddReceipt, exact: true },
-  { path: '/referred', name: 'حواله', component: Other, exact: true },
-  { path: '/referred/list', name: 'لیست', component: Other, exact: true },
-  { path: '/referred/add', name: 'ثبت', component: Other, exact: true },
   { path: '/tools/print', name: 'ثبت', component: ToolPrint, exact: true },
+  { path: '/transference', name: 'حواله', component: Other, exact: true },
+  { path: '/transference/list', name: 'لیست', component: Other, exact: true },
+  { path: '/transference/add', name: 'ثبت', component: AddTransference, exact: true },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
