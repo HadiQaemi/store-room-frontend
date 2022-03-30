@@ -12,6 +12,9 @@ const CustomSelect2 = ({
   onKeyDown,
   value,
 }) => {
+  const onChange123 = () => {
+    alert('onChange123')
+  }
   return (
     <>
       <Controller
@@ -23,7 +26,7 @@ const CustomSelect2 = ({
             <Select
               // onChange={(e) => alert(e)}
               onKeyDown={onKeyDown}
-              onChange={onChange}
+              onChange={onChange123}
               options={options}
               value={value}
               control={control}

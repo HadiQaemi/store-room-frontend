@@ -6,6 +6,7 @@ import { CButton, CCol, CForm, CFormInput, CFormLabel, CFormSelect, CRow } from 
 import { Controller } from 'react-hook-form'
 import CustomSelect2 from 'src/customComponents/custom-select/CustomSelect2'
 import { CustomDate } from 'src/customComponents/custom-date/CustomDate'
+import Select from 'react-select'
 
 const FormTransference = ({
   handleSubmit,
@@ -34,13 +35,58 @@ const FormTransference = ({
     setSearchVal('')
   }
   const handleSearchKalaKeyDown = (e) => {
-    let search = searchVal + e.key
-    setSearchVal(search)
-    searchKalaKeyDown(search)
+    if (e.key !== 'Backspace' && e.key !== 'Alt') {
+      let search = searchVal + e.key
+      setSearchVal(search)
+      searchKalaKeyDown(search)
+    }
   }
+  const optionss = [
+    { value: 'apple', label: 'Apple', isFixed: true },
+    { value: 'orange', label: 'Orange' },
+  ]
   return (
     <>
       <CForm onSubmit={handleSubmit(onSubmit)} className="form">
+        <CRow>
+          <CCol md={4}>
+            <CFormLabel htmlFor="transferenceNumber">شماره حواله</CFormLabel>
+            <CFormInput
+              id="transferenceNumber"
+              placeholder="شماره حواله"
+              {...register('transferenceNumber', { required: true })}
+            />
+          </CCol>
+          <CCol md={4}>
+            <CFormLabel htmlFor="transferenceDestination">مقصد حواله</CFormLabel>
+            <CustomSelect2
+              name="transferenceDestination"
+              control={control}
+              placeholder="مقصد حواله"
+              className="reactSelect"
+              options={options}
+            />
+          </CCol>
+          <CCol md={4}>
+            <CFormLabel htmlFor="date">زمان</CFormLabel>
+            <CustomDate control={control} name="date" />
+          </CCol>
+        </CRow>
+        <hr />
+        <CRow className="searchKala">
+          <CCol md={12}>
+            <CFormLabel htmlFor="searchKala">انتخاب کالا</CFormLabel>
+            <Select
+              name="searchKala"
+              classNamePrefix="select"
+              onChange={handleSearchKala}
+              onKeyDown={handleSearchKalaKeyDown}
+              options={searchValues}
+              placeholder="جستجو براساس سریال، آمایش، پلاک، دسته بندی کالا، نوع کالا"
+              className="reactSelect"
+            />
+          </CCol>
+        </CRow>
         <CRow className="searchKala">
           <CCol md={12}>
             <CFormLabel htmlFor="searchKala">انتخاب کالا</CFormLabel>
@@ -56,43 +102,6 @@ const FormTransference = ({
             />
           </CCol>
         </CRow>
-        <CRow>
-          <CCol md={3}>
-            <CFormLabel htmlFor="locationKala">محل نگهداری کالا</CFormLabel>
-            <CustomSelect2
-              name="locationKala"
-              control={control}
-              placeholder="محل نگهداری کالا"
-              className="reactSelect"
-              options={options}
-            />
-          </CCol>
-          <CCol md={3}>
-            <CFormLabel htmlFor="locationSource">محل تامین کالا</CFormLabel>
-            <CustomSelect2
-              name="locationSource"
-              control={control}
-              placeholder="محل تامین کالا"
-              className="reactSelect"
-              options={options}
-            />
-          </CCol>
-          <CCol md={3}>
-            <CFormLabel htmlFor="locationDestination">محل ارسال</CFormLabel>
-            <CustomSelect2
-              name="locationDestination"
-              control={control}
-              placeholder="محل ارسال"
-              className="reactSelect"
-              options={options}
-            />
-          </CCol>
-          <CCol md={3}>
-            <CFormLabel htmlFor="date">زمان</CFormLabel>
-            <CustomDate control={control} name="date" />
-          </CCol>
-        </CRow>
-        <hr />
         <CRow>
           <CCol md={3}>
             <CFormLabel htmlFor="serial">سریال</CFormLabel>
