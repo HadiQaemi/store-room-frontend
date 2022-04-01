@@ -7,6 +7,7 @@ import {
   cilSpeedometer,
   cilBuilding,
   cilTransfer,
+  cilUser,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
 const _nav = [
@@ -103,6 +104,24 @@ const _nav = [
         component: CNavItem,
         name: 'ثبت حواله',
         to: '/transference/add',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'مدیریت',
+    to: '/management',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'کاربران',
+        to: '/management/user',
+      },
+      {
+        component: CNavItem,
+        name: 'نقش',
+        to: '/management/role',
       },
     ],
   },

@@ -30,4 +30,7 @@ export const placeServices = {
   //recipts services
   addReceipt: async (data) => baseService('/receipts', 'POST', data),
   getReceipt: async (data) => baseService('/receipts', 'GET', data),
+  //management services
+  insertUser: async (data) => baseService('/managements/users', 'POST', data),
+  getUsers: async (data) => baseService('/managements/users', 'GET', data),
 }

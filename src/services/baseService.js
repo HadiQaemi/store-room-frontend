@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { SERVER_ADDRESS } from 'src/constants/configs'
-import { toastAnyWhere } from 'src/constants/functions'
+import { Toast, toastAnyWhere } from 'src/constants/functions'
+import Swal from 'sweetalert2'
 import { authenticationServices } from './authenticationServices'
 
 export default async function baseService(url, method, data) {
@@ -18,6 +19,10 @@ export default async function baseService(url, method, data) {
       return response.data
     }
   } catch (error) {
+    if (!(error.response.status >= 200 && error.response.status < 300)) {
+      Toast.show(error.response.data.message, 'error')
+      return { status: 'error', code: error.response.status }
+    }
     if (!axios.isCancel(error)) {
       error.response.data.message && toastAnyWhere.show(error.response.data.message, 'error')
       if (error.response.status === 401) {
