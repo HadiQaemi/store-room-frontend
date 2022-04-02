@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo, cilPen, cilPrint, cilTrash, cilX } from '@coreui/icons'
+import { cilAlarm, cilPen, cilPlus, cilTrash, cilX } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
-import UserModal from './components/UserModal'
+import RoleModal from './components/RoleModal'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -30,17 +30,18 @@ const Styles = styled.div`
     }
   }
 `
-const UserList = () => {
-  const [Users, setUsers] = React.useState([])
+const RoleList = () => {
+  const [Roles, setRoles] = useState([])
+  // const [modal, setModal] = useState(false)
 
   const refresh = () => {
-    placeServices.getUsers([]).then((response) => {
-      setUsers(response)
+    placeServices.getRoles([]).then((response) => {
+      setRoles(response)
     })
   }
   const removeItem = async (id) => {
     const action = (id) => {
-      placeServices.removeUsers(id)
+      placeServices.removeRoles(id)
       setTimeout(() => {
         refresh()
       }, 300)
@@ -61,33 +62,27 @@ const UserList = () => {
     },
     {
       Header: 'نام',
-      accessor: 'firstname',
+      accessor: 'name',
       width: '10',
-      Cell: (row) => <>{row.row.original.firstname}</>,
+      Cell: (row) => <>{row.row.original.name}</>,
     },
     {
-      Header: 'نام خانوادگی',
-      accessor: 'lastname',
+      Header: 'دسترسی ها',
+      accessor: 'permissions',
       width: '10',
-      Cell: (row) => <>{row.row.original.lastname}</>,
-    },
-    {
-      Header: 'نام کاربری',
-      accessor: 'username',
-      width: '10',
-      Cell: (row) => <>{row.row.original.username}</>,
-    },
-    {
-      Header: 'نقش',
-      accessor: 'user_type',
-      width: '10',
-      Cell: (row) => <>{row.row.original.user_type === 'branch' ? 'شعبه' : 'مدیر'}</>,
-    },
-    {
-      Header: 'وضعیت',
-      accessor: 'status',
-      width: '10',
-      Cell: (row) => <>{row.row.original.status === 'true' ? 'فعال' : 'غیرفعال'}</>,
+      Cell: (row) => (
+        <>
+          <CButton
+            color="success"
+            data-tip="دسترسی"
+            onClick={() => removeItem(row.row.original.id)}
+            variant="ghost"
+          >
+            <CIcon icon={cilAlarm} size="xl" />
+          </CButton>
+          <ReactTooltip />
+        </>
+      ),
     },
     {
       Header: 'عملیات',
@@ -125,14 +120,14 @@ const UserList = () => {
     },
   ]
   const tempObject = { name: null, code: null, phone: null, address: null, id: null }
-  const data = [...Users]
+  const data = [...Roles]
   return (
     <>
       <CCard className="mb-4">
         <CCardHeader>
-          لیست کاربران
+          لیست نقش ها
           <div className="float-end">
-            <UserModal refresh={refresh} action="add" id={null} object={tempObject} />
+            <RoleModal refresh={refresh} action="add" id={null} object={tempObject} />
           </div>
         </CCardHeader>
         <CCardBody>
@@ -153,4 +148,4 @@ const UserList = () => {
   )
 }
 
-export default UserList
+export default RoleList

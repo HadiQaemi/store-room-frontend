@@ -62,6 +62,7 @@ const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
 const ToolPrint = React.lazy(() => import('./pages/tool/Print'))
 const AddTransference = React.lazy(() => import('./pages/transference/AddTransference'))
 const UserList = React.lazy(() => import('./pages/management/UserList'))
+const RoleList = React.lazy(() => import('./pages/management/RoleList'))
 
 const routes = [
   { path: '/', exact: true, name: 'داشبورد' },
@@ -84,7 +85,7 @@ const routes = [
   { path: '/transference/add', name: 'ثبت', component: AddTransference, exact: true },
   { path: '/management', name: 'مدیریت', component: UserList, exact: true },
   { path: '/management/user', name: 'کاربران', component: UserList, exact: true },
-  // { path: '/management/role', name: 'نقش', component: AddTransference, exact: true },
+  { path: '/management/role', name: 'نقش', component: RoleList, exact: true },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

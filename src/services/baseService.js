@@ -21,6 +21,9 @@ export default async function baseService(url, method, data) {
   } catch (error) {
     if (!(error.response.status >= 200 && error.response.status < 300)) {
       Toast.show(error.response.data.message, 'error')
+      if (error.response.status === 401) {
+        await authenticationServices.logout()
+      }
       return { status: 'error', code: error.response.status }
     }
     if (!axios.isCancel(error)) {

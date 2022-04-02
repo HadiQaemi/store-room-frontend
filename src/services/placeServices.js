@@ -33,4 +33,6 @@ export const placeServices = {
   //management services
   insertUser: async (data) => baseService('/managements/users', 'POST', data),
   getUsers: async (data) => baseService('/managements/users', 'GET', data),
+  insertRole: async (data) => baseService('/managements/roles', 'POST', data),
+  getRoles: async (data) => baseService('/managements/roles', 'GET', data),
 }
