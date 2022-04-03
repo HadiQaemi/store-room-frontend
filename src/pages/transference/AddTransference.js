@@ -10,6 +10,7 @@ import FormTransference from './components/FormTransference'
 const AddTransference = () => {
   const [options, setOptions] = useState([])
   const [tools, setTools] = useState([])
+  const [itemIds, setItemIds] = useState([])
   const [receipt, setReceipt] = useState([])
   const [groupKala, setGroupKala] = useState([])
   const [toolGroups, setToolGroups] = useState([])
@@ -33,27 +34,28 @@ const AddTransference = () => {
   }, [])
   const onSubmit = (data) => {
     let item = {
-      serial: data.serial,
-      amayesh: data.amayesh,
-      plaque: data.plaque,
-      categoryKala: data.categoryKala,
-      typeKala: data.typeKala,
-      groupKala: groupKala,
-      modelKala: data.modelKala.label,
+      serial: data.tool.serial_number,
+      amayesh: data.tool.amayesh,
+      plaque: data.tool.pelauqe,
+      categoryKala: data.tool.category,
+      typeKala: data.tool.type,
+      groupKala: data.tool.group,
+      modelKala: data.tool.model,
       uuid: uuidv4(),
     }
+    console.log(item, data.tool)
     let temp = [...tools, item]
     setTools(temp)
+    setItemIds([...itemIds, data.tool.id])
     setReceipt({
-      locationDestination: data.locationDestination.value,
-      locationKala: data.locationKala.value,
-      locationSource: data.locationSource.value,
-      date: data.date,
+      transferenceDestination: data.data.transferenceDestination.value,
+      transferenceNumber: data.data.transferenceNumber,
+      date: data.data.date,
     })
   }
   const submitReceipt = () => {
-    const data = { receipt: receipt, tools: tools }
-    placeServices.addReceipt(data).then((response) => {
+    const data = { transference: receipt, tools: itemIds }
+    placeServices.addTransference(data).then((response) => {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

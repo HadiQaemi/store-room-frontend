@@ -35,4 +35,7 @@ export const placeServices = {
   getUsers: async (data) => baseService('/managements/users', 'GET', data),
   insertRole: async (data) => baseService('/managements/roles', 'POST', data),
   getRoles: async (data) => baseService('/managements/roles', 'GET', data),
+  //transference services
+  addTransference: async (data) => baseService('/transference', 'POST', data),
+  getTransference: async (data) => baseService('/transference', 'GET', data),
 }

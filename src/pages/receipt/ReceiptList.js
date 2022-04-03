@@ -134,14 +134,14 @@ const ReceiptList = () => {
       width: '10',
       Cell: (row) => (
         <>
-          <CButton
+          {/* <CButton
             color="danger"
             data-tip="حذف"
             onClick={() => removeItem(row.row.original.id)}
             variant="ghost"
           >
             <CIcon icon={cilTrash} size="xl" />
-          </CButton>
+          </CButton> */}
           <CButton
             color="info"
             data-tip="مشاهده"
@@ -158,14 +158,14 @@ const ReceiptList = () => {
           >
             <CIcon icon={cilPrint} size="xl" />
           </CButton>
-          <CButton
+          {/* <CButton
             color="success"
             data-tip="ویرایش"
             onClick={() => removeItem(row.row.original.id)}
             variant="ghost"
           >
             <CIcon icon={cilPen} size="xl" />
-          </CButton>
+          </CButton> */}
           <ReactTooltip />
         </>
       ),
