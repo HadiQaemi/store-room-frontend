@@ -60,6 +60,7 @@ const Other = React.lazy(() => import('./pages/place/Other'))
 const AddReceipt = React.lazy(() => import('./pages/receipt/Addnew'))
 const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
 const ToolPrint = React.lazy(() => import('./pages/tool/Print'))
+const ToolList = React.lazy(() => import('./pages/tool/ToolList'))
 const AddTransference = React.lazy(() => import('./pages/transference/AddTransference'))
 const ListTransference = React.lazy(() => import('./pages/transference/ListTransference'))
 const UserList = React.lazy(() => import('./pages/management/UserList'))
@@ -72,6 +73,7 @@ const routes = [
   { path: '/tools', name: 'کالا', component: Colors, exact: true },
   { path: '/tools/group', name: 'گروه کالا', component: Colors, exact: true },
   { path: '/tools/model', name: 'مدل کالا', component: Colors, exact: true },
+  { path: '/tools/list', name: 'جستجو کالا', component: ToolList, exact: true },
   { path: '/place', name: 'مکان', component: Colors, exact: true },
   { path: '/place/store-room', name: 'انبارها', component: StoreRoom, exact: true },
   { path: '/place/bank-unit', name: 'واحدهای بانکی', component: BankUint, exact: true },

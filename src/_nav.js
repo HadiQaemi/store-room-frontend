@@ -41,6 +41,11 @@ const _nav = [
         name: 'مدل کالا',
         to: '/tools/model',
       },
+      {
+        component: CNavItem,
+        name: 'لیست کالا',
+        to: '/tools/list',
+      },
     ],
   },
   {
