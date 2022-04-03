@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { CButton, CCard, CCardBody, CCardHeader, CRow } from '@coreui/react'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CModal,
+  CModalBody,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilInfo } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
@@ -33,7 +49,7 @@ const Styles = styled.div`
 const ToolList = () => {
   const [Other, setOther] = React.useState([])
   const [visibleInfo, setVisibleInfo] = useState(false)
-  const [Tools, setTools] = useState(false)
+  const [tools, setTools] = useState([])
 
   const refresh = () => {
     placeServices.allTools([]).then((response) => {
@@ -50,8 +66,11 @@ const ToolList = () => {
     fireSwalConfirmation(action(id))
   }
   const showTools = async (tool) => {
+    placeServices.toolTransports(tool).then((response) => {
+      // setOther(response)
+    })
     setVisibleInfo(!visibleInfo)
-    setTools(tool)
+    // setTools(tool)
   }
 
   useEffect(() => {
@@ -111,7 +130,7 @@ const ToolList = () => {
           <CButton
             color="info"
             data-tip="مشاهده"
-            onClick={() => showTools(row.row.original.tools)}
+            onClick={() => showTools(row.row.original.id)}
             variant="ghost"
           >
             <CIcon icon={cilInfo} size="xl" />
@@ -124,6 +143,43 @@ const ToolList = () => {
   const data = [...Other]
   return (
     <>
+      <CModal size="lg" visible={visibleInfo} onClose={() => setVisibleInfo(false)}>
+        <CModalHeader onClose={() => setVisibleInfo(false)}>
+          <CModalTitle>انتقالات</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CTable>
+            <CTableHead color="light">
+              <CTableRow>
+                <CTableHeaderCell scope="col">#</CTableHeaderCell>
+                <CTableDataCell>دسته بندی</CTableDataCell>
+                <CTableDataCell>پلاک</CTableDataCell>
+                <CTableDataCell>آمایش</CTableDataCell>
+                <CTableDataCell>شماره سریال</CTableDataCell>
+                <CTableDataCell>نوع</CTableDataCell>
+                <CTableDataCell>گروه</CTableDataCell>
+                <CTableDataCell>مدل</CTableDataCell>
+              </CTableRow>
+            </CTableHead>
+            {/* <CTableBody>
+              {tools.map((item, index) => {
+                return (
+                  <CTableRow key={index}>
+                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                    <CTableDataCell>{item.category}</CTableDataCell>
+                    <CTableDataCell>{item.pelauqe}</CTableDataCell>
+                    <CTableDataCell>{item.amayesh}</CTableDataCell>
+                    <CTableDataCell>{item.serial_number}</CTableDataCell>
+                    <CTableDataCell>{item.type}</CTableDataCell>
+                    <CTableDataCell>{item.group}</CTableDataCell>
+                    <CTableDataCell>{item.model}</CTableDataCell>
+                  </CTableRow>
+                )
+              })}
+            </CTableBody> */}
+          </CTable>
+        </CModalBody>
+      </CModal>
       <CCard className="mb-4">
         <CCardHeader>لیست کالا</CCardHeader>
         <CCardBody>
