@@ -61,6 +61,7 @@ const AddReceipt = React.lazy(() => import('./pages/receipt/Addnew'))
 const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
 const ToolPrint = React.lazy(() => import('./pages/tool/Print'))
 const AddTransference = React.lazy(() => import('./pages/transference/AddTransference'))
+const ListTransference = React.lazy(() => import('./pages/transference/ListTransference'))
 const UserList = React.lazy(() => import('./pages/management/UserList'))
 const RoleList = React.lazy(() => import('./pages/management/RoleList'))
 
@@ -81,7 +82,7 @@ const routes = [
   { path: '/receipt/add', name: 'ثبت', component: AddReceipt, exact: true },
   { path: '/tools/print', name: 'ثبت', component: ToolPrint, exact: true },
   { path: '/transference', name: 'حواله', component: Other, exact: true },
-  { path: '/transference/list', name: 'لیست', component: Other, exact: true },
+  { path: '/transference/list', name: 'لیست', component: ListTransference, exact: true },
   { path: '/transference/add', name: 'ثبت', component: AddTransference, exact: true },
   { path: '/management', name: 'مدیریت', component: UserList, exact: true },
   { path: '/management/user', name: 'کاربران', component: UserList, exact: true },
