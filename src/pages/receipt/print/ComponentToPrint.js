@@ -97,6 +97,39 @@ class ComponentToPrint extends React.Component {
               })}
             </CTableBody>
           </CTable>
+          <CRow className="users-signature">
+            <CCol sm={4}>تنظیم کننده: {this.props.info}</CCol>
+          </CRow>
+          <CRow>
+            <CCol sm={12}>بدین وسیله گواهی می شود اقلام مشروحه فوق تحویل گردید:</CCol>
+          </CRow>
+          <CTable>
+            <CTableBody className="no-border">
+              <CTableRow>
+                <CTableHeaderCell scope="row"></CTableHeaderCell>
+                <CTableDataCell className="pre-width"></CTableDataCell>
+                <CTableDataCell>انبار</CTableDataCell>
+                <CTableDataCell></CTableDataCell>
+                <CTableDataCell>مسئول دایره</CTableDataCell>
+                <CTableDataCell></CTableDataCell>
+              </CTableRow>
+            </CTableBody>
+          </CTable>
+          <CRow>
+            <CCol sm={12}>اظهار نظر دایره ذیربط:</CCol>
+          </CRow>
+          <CTable>
+            <CTableBody className="no-border">
+              <CTableRow>
+                <CTableHeaderCell scope="row"></CTableHeaderCell>
+                <CTableDataCell className="pre-width"></CTableDataCell>
+                <CTableDataCell>مسئول دایره</CTableDataCell>
+                <CTableDataCell></CTableDataCell>
+                <CTableDataCell>دستورات اداره کارپردازی</CTableDataCell>
+                <CTableDataCell></CTableDataCell>
+              </CTableRow>
+            </CTableBody>
+          </CTable>
         </CRow>
       </>
     )

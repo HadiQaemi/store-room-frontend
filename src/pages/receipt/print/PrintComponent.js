@@ -4,9 +4,12 @@ import { CButton } from '@coreui/react'
 import React, { useRef } from 'react'
 import ReactToPrint from 'react-to-print'
 import ComponentToPrint from './ComponentToPrint'
+import { useSelector } from 'react-redux'
 
 export default function PrintComponent({ toolPrint }) {
   let componentRef = useRef()
+  const user = useSelector((state) => state.data.user)
+  const info = user.firstname + ' ' + user.lastname
 
   return (
     <>
@@ -19,7 +22,7 @@ export default function PrintComponent({ toolPrint }) {
           )}
           content={() => componentRef}
         />
-        <ComponentToPrint ref={(el) => (componentRef = el)} toolPrint={toolPrint} />
+        <ComponentToPrint info={info} ref={(el) => (componentRef = el)} toolPrint={toolPrint} />
       </div>
     </>
   )
