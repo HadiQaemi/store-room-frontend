@@ -31,16 +31,16 @@ const _nav = [
     to: '/tools',
     icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
     items: [
-      {
-        component: CNavItem,
-        name: 'گروه کالا',
-        to: '/tools/group',
-      },
-      {
-        component: CNavItem,
-        name: 'مدل کالا',
-        to: '/tools/model',
-      },
+      // {
+      //   component: CNavItem,
+      //   name: 'گروه کالا',
+      //   to: '/tools/group',
+      // },
+      // {
+      //   component: CNavItem,
+      //   name: 'مدل کالا',
+      //   to: '/tools/model',
+      // },
       {
         component: CNavItem,
         name: 'لیست کالا',
@@ -98,6 +98,7 @@ const _nav = [
     component: CNavGroup,
     name: 'حواله',
     to: '/transference',
+    role: 'admin',
     icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
     items: [
       {
@@ -116,96 +117,99 @@ const _nav = [
     component: CNavGroup,
     name: 'مدیریت',
     to: '/management',
+    role: 'admin',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
     items: [
       {
+        role: 'admin',
         component: CNavItem,
         name: 'کاربران',
         to: '/management/user',
       },
       {
+        role: 'admin',
         component: CNavItem,
         name: 'نقش',
         to: '/management/role',
       },
     ],
   },
-  {
-    component: CNavGroup,
-    name: 'Buttons',
-    to: '/buttons',
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
-      },
-      {
-        component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
-      },
-      {
-        component: CNavItem,
-        name: 'Dropdowns',
-        to: '/buttons/dropdowns',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Forms',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Form Control',
-        to: '/forms/form-control',
-      },
-      {
-        component: CNavItem,
-        name: 'Select',
-        to: '/forms/select',
-      },
-      {
-        component: CNavItem,
-        name: 'Checks & Radios',
-        to: '/forms/checks-radios',
-      },
-      {
-        component: CNavItem,
-        name: 'Range',
-        to: '/forms/range',
-      },
-      {
-        component: CNavItem,
-        name: 'Input Group',
-        to: '/forms/input-group',
-      },
-      {
-        component: CNavItem,
-        name: 'Floating Labels',
-        to: '/forms/floating-labels',
-      },
-      {
-        component: CNavItem,
-        name: 'Layout',
-        to: '/forms/layout',
-      },
-      {
-        component: CNavItem,
-        name: 'Validation',
-        to: '/forms/validation',
-      },
-    ],
-  },
-  {
-    component: CNavItem,
-    name: 'Charts',
-    to: '/charts',
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Buttons',
+  //   to: '/buttons',
+  //   icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Buttons',
+  //       to: '/buttons/buttons',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Buttons groups',
+  //       to: '/buttons/button-groups',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Dropdowns',
+  //       to: '/buttons/dropdowns',
+  //     },
+  //   ],
+  // },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Forms',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Form Control',
+  //       to: '/forms/form-control',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Select',
+  //       to: '/forms/select',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Checks & Radios',
+  //       to: '/forms/checks-radios',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Range',
+  //       to: '/forms/range',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Input Group',
+  //       to: '/forms/input-group',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Floating Labels',
+  //       to: '/forms/floating-labels',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Layout',
+  //       to: '/forms/layout',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Validation',
+  //       to: '/forms/validation',
+  //     },
+  //   ],
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Charts',
+  //   to: '/charts',
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
 ]
 
 export default _nav

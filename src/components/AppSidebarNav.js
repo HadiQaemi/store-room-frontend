@@ -4,13 +4,15 @@ import PropTypes from 'prop-types'
 
 import { CBadge } from '@coreui/react'
 
-export const AppSidebarNav = ({ items }) => {
+export const AppSidebarNav = ({ items, user }) => {
   const location = useLocation()
-  const navLink = (name, icon, badge) => {
+  const [info, setInfo] = React.useState(user)
+  const navLink = (name, icon, badge, role) => {
     return (
       <>
         {icon && icon}
         {name && name}
+        {/* {role && role} */}
         {badge && (
           <CBadge color={badge.color} className="ms-auto">
             {badge.text}
@@ -20,8 +22,8 @@ export const AppSidebarNav = ({ items }) => {
     )
   }
 
-  const navItem = (item, index) => {
-    const { component, name, badge, icon, ...rest } = item
+  const navItem = (item, index, user) => {
+    const { component, name, badge, role, icon, ...rest } = item
     const Component = component
     return (
       <Component
@@ -31,20 +33,21 @@ export const AppSidebarNav = ({ items }) => {
             activeClassName: 'active',
           })}
         key={index}
+        role={role}
         {...rest}
       >
-        {navLink(name, icon, badge)}
+        {navLink(name, icon, badge, role)}
       </Component>
     )
   }
   const navGroup = (item, index) => {
-    const { component, name, icon, to, ...rest } = item
+    const { component, name, role, icon, to, ...rest } = item
     const Component = component
     return (
       <Component
         idx={String(index)}
         key={index}
-        toggler={navLink(name, icon)}
+        toggler={navLink(name, icon, role)}
         visible={location.pathname.startsWith(to)}
         {...rest}
       >
