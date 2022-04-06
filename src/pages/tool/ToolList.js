@@ -49,7 +49,12 @@ const Styles = styled.div`
 const ToolList = () => {
   const [Other, setOther] = React.useState([])
   const [visibleInfo, setVisibleInfo] = useState(false)
-  const [tools, setTools] = useState([])
+  const [transports, setTransports] = useState([])
+  const placeTypes = []
+  placeTypes['storeRoomRepository'] = 'انبار'
+  placeTypes['bankUnitsRepository'] = 'واحد بانک'
+  placeTypes['branchRepository'] = 'شعبه'
+  placeTypes['otherRepository'] = 'سایر'
 
   const refresh = () => {
     placeServices.allTools([]).then((response) => {
@@ -67,10 +72,9 @@ const ToolList = () => {
   }
   const showTools = async (tool) => {
     placeServices.toolTransports(tool).then((response) => {
-      // setOther(response)
+      setTransports(response)
     })
     setVisibleInfo(!visibleInfo)
-    // setTools(tool)
   }
 
   useEffect(() => {
@@ -152,31 +156,25 @@ const ToolList = () => {
             <CTableHead color="light">
               <CTableRow>
                 <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                <CTableDataCell>دسته بندی</CTableDataCell>
-                <CTableDataCell>پلاک</CTableDataCell>
-                <CTableDataCell>آمایش</CTableDataCell>
-                <CTableDataCell>شماره سریال</CTableDataCell>
                 <CTableDataCell>نوع</CTableDataCell>
-                <CTableDataCell>گروه</CTableDataCell>
-                <CTableDataCell>مدل</CTableDataCell>
+                <CTableDataCell>محل</CTableDataCell>
+                <CTableDataCell>نام</CTableDataCell>
+                <CTableDataCell>تاریخ</CTableDataCell>
               </CTableRow>
             </CTableHead>
-            {/* <CTableBody>
-              {tools.map((item, index) => {
+            <CTableBody>
+              {transports.map((item, index) => {
                 return (
                   <CTableRow key={index}>
                     <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                    <CTableDataCell>{item.category}</CTableDataCell>
-                    <CTableDataCell>{item.pelauqe}</CTableDataCell>
-                    <CTableDataCell>{item.amayesh}</CTableDataCell>
-                    <CTableDataCell>{item.serial_number}</CTableDataCell>
-                    <CTableDataCell>{item.type}</CTableDataCell>
-                    <CTableDataCell>{item.group}</CTableDataCell>
-                    <CTableDataCell>{item.model}</CTableDataCell>
+                    <CTableDataCell>{item.type === 'RECEIPT' ? 'رسید' : 'حواله'}</CTableDataCell>
+                    <CTableDataCell>{placeTypes[item.model]}</CTableDataCell>
+                    <CTableDataCell>{item.name}</CTableDataCell>
+                    <CTableDataCell>{item.date}</CTableDataCell>
                   </CTableRow>
                 )
               })}
-            </CTableBody> */}
+            </CTableBody>
           </CTable>
         </CModalBody>
       </CModal>
