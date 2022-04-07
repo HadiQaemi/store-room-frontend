@@ -4,6 +4,10 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
+  CCol,
+  CForm,
+  CFormInput,
+  CFormLabel,
   CModal,
   CModalBody,
   CModalHeader,
@@ -17,13 +21,15 @@ import {
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo } from '@coreui/icons'
+import { cilInfo, cilSearch } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
+import CustomSelect2 from 'src/customComponents/custom-select/CustomSelect2'
+import { useForm } from 'react-hook-form'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -145,6 +151,12 @@ const ToolList = () => {
     },
   ]
   const data = [...Other]
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {},
+  })
+  const onSubmit = (data) => {
+    console.log(data)
+  }
   return (
     <>
       <CModal size="lg" visible={visibleInfo} onClose={() => setVisibleInfo(false)}>
@@ -170,7 +182,9 @@ const ToolList = () => {
                     <CTableDataCell>{item.type === 'RECEIPT' ? 'رسید' : 'حواله'}</CTableDataCell>
                     <CTableDataCell>{placeTypes[item.model]}</CTableDataCell>
                     <CTableDataCell>{item.name}</CTableDataCell>
-                    <CTableDataCell>{item.date}</CTableDataCell>
+                    <CTableDataCell>
+                      {moment(item.date, 'YYYY-M-D HH:mm:ss').endOf('jMonth').format('jYYYY/jM/jD')}
+                    </CTableDataCell>
                   </CTableRow>
                 )
               })}
@@ -181,6 +195,80 @@ const ToolList = () => {
       <CCard className="mb-4">
         <CCardHeader>لیست کالا</CCardHeader>
         <CCardBody>
+          <CRow className="form-filter">
+            <CForm onSubmit={handleSubmit(onSubmit)} className="form">
+              <CRow className="row">
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="سریال"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="آمایش"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="پلاک"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="نوع"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="دسته"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="مدل"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+              </CRow>
+              <CRow className="row">
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="از تاریخ"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="تا تاریخ"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={4}>
+                  <CFormInput
+                    id="serial"
+                    placeholder="موقعیت"
+                    {...register('serial', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CIcon icon={cilSearch} size="xl" data-tip="مشاهده" className="icon-search" />
+                </CCol>
+              </CRow>
+            </CForm>
+          </CRow>
           <CRow>
             <Styles>
               <CustomTable
