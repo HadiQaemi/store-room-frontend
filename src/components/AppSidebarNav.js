@@ -25,37 +25,76 @@ export const AppSidebarNav = ({ items, user }) => {
   const navItem = (item, index, user) => {
     const { component, name, badge, role, icon, ...rest } = item
     const Component = component
-    return (
-      <Component
-        {...(rest.to &&
-          !rest.items && {
-            component: NavLink,
-            activeClassName: 'active',
-          })}
-        key={index}
-        role={role}
-        {...rest}
-      >
-        {navLink(name, icon, badge, role)}
-      </Component>
-    )
+    var isAdmin = 0
+    if (role !== undefined) {
+      if (role === 'admin') {
+        isAdmin = 1
+        if (role == info.type) {
+          return (
+            <Component
+              {...(rest.to && !rest.items && { component: NavLink, activeClassName: 'active' })}
+              key={index}
+              role={role}
+              {...rest}
+            >
+              {navLink(name, icon, badge, role)}
+            </Component>
+          )
+        }
+      }
+    }
+    if (!isAdmin) {
+      return (
+        <Component
+          {...(rest.to && !rest.items && { component: NavLink, activeClassName: 'active' })}
+          key={index}
+          role={role}
+          {...rest}
+        >
+          {navLink(name, icon, badge, role)}
+        </Component>
+      )
+    }
   }
   const navGroup = (item, index) => {
     const { component, name, role, icon, to, ...rest } = item
     const Component = component
-    return (
-      <Component
-        idx={String(index)}
-        key={index}
-        toggler={navLink(name, icon, role)}
-        visible={location.pathname.startsWith(to)}
-        {...rest}
-      >
-        {item.items?.map((item, index) =>
-          item.items ? navGroup(item, index) : navItem(item, index),
-        )}
-      </Component>
-    )
+    var isAdmin = 0
+    if (role !== undefined) {
+      if (role === 'admin') {
+        isAdmin = 1
+        if (role == info.type) {
+          return (
+            <Component
+              idx={String(index)}
+              key={index}
+              toggler={navLink(name, icon, role)}
+              visible={location.pathname.startsWith(to)}
+              {...rest}
+            >
+              {item.items?.map((item, index) =>
+                item.items ? navGroup(item, index) : navItem(item, index),
+              )}
+            </Component>
+          )
+        }
+      }
+    }
+    if (!isAdmin) {
+      return (
+        <Component
+          idx={String(index)}
+          key={index}
+          toggler={navLink(name, icon, role)}
+          visible={location.pathname.startsWith(to)}
+          {...rest}
+        >
+          {item.items?.map((item, index) =>
+            item.items ? navGroup(item, index) : navItem(item, index),
+          )}
+        </Component>
+      )
+    }
   }
 
   return (
