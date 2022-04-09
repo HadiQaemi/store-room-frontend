@@ -32,6 +32,29 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: 'گزارش گیری',
+    to: '/reporting',
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'براساس کالا',
+        to: '/reporting/tools',
+      },
+      {
+        component: CNavItem,
+        name: 'براساس تاریخ',
+        to: '/reporting/date',
+      },
+      {
+        component: CNavItem,
+        name: 'براساس محل',
+        to: '/reporting/place',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: 'مکان',
     role: 'admin',
     to: '/place',

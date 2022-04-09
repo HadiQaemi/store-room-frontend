@@ -62,6 +62,9 @@ const AddReceipt = React.lazy(() => import('./pages/receipt/Addnew'))
 const ReceiptList = React.lazy(() => import('./pages/receipt/ReceiptList'))
 const ToolPrint = React.lazy(() => import('./pages/tool/Print'))
 const ToolList = React.lazy(() => import('./pages/tool/ToolList'))
+const ToolListAttrib = React.lazy(() => import('./pages/tool/ToolListAttrib'))
+const ToolListDate = React.lazy(() => import('./pages/tool/ToolListDate'))
+const ToolListPlace = React.lazy(() => import('./pages/tool/ToolListPlace'))
 const AddTransference = React.lazy(() => import('./pages/transference/AddTransference'))
 const ListTransference = React.lazy(() => import('./pages/transference/ListTransference'))
 const UserList = React.lazy(() => import('./pages/management/UserList'))
@@ -90,6 +93,10 @@ const routes = [
   { path: '/management', name: 'مدیریت', component: UserList, exact: true },
   { path: '/management/user', name: 'کاربران', component: UserList, exact: true },
   { path: '/management/role', name: 'نقش', component: RoleList, exact: true },
+  { path: '/reporting', name: 'گزارش گیری', component: ToolList, exact: true },
+  { path: '/reporting/tools', name: 'براساس کالا', component: ToolListAttrib, exact: true },
+  { path: '/reporting/date', name: 'براساس تاریخ', component: ToolListDate, exact: true },
+  { path: '/reporting/place', name: 'براساس محل', component: ToolListPlace, exact: true },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

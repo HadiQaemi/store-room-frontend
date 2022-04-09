@@ -4,6 +4,10 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
+  CCol,
+  CForm,
+  CFormInput,
+  CFormLabel,
   CModal,
   CModalBody,
   CModalHeader,
@@ -17,14 +21,16 @@ import {
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo } from '@coreui/icons'
+import { cilInfo, cilSearch } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
+import CustomSelect2 from 'src/customComponents/custom-select/CustomSelect2'
 import { useForm } from 'react-hook-form'
+import { CustomDate } from 'src/customComponents/custom-date/CustomDate'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -47,7 +53,7 @@ const Styles = styled.div`
     }
   }
 `
-const ToolList = () => {
+const ToolListDate = () => {
   const [Other, setOther] = React.useState([])
   const [visibleInfo, setVisibleInfo] = useState(false)
   const [transports, setTransports] = useState([])
@@ -190,6 +196,31 @@ const ToolList = () => {
       <CCard className="mb-4">
         <CCardHeader>لیست کالا</CCardHeader>
         <CCardBody>
+          <CRow className="form-filter">
+            <CForm onSubmit={handleSubmit(onSubmit)} className="form">
+              <CRow className="row">
+                <CCol md={2}>
+                  <CustomDate
+                    control={control}
+                    name="date"
+                    placeholder="از تاریخ"
+                    {...register('since_date', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CustomDate
+                    control={control}
+                    name="date"
+                    placeholder="تا تاریخ"
+                    {...register('until_date', { required: true })}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CIcon icon={cilSearch} size="xl" data-tip="مشاهده" className="icon-search" />
+                </CCol>
+              </CRow>
+            </CForm>
+          </CRow>
           <CRow>
             <Styles>
               <CustomTable
@@ -207,4 +238,4 @@ const ToolList = () => {
   )
 }
 
-export default ToolList
+export default ToolListDate

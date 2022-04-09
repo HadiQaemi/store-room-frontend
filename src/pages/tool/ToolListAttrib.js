@@ -4,24 +4,17 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
+  CCol,
+  CForm,
+  CFormInput,
+  CFormSelect,
   CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilInfo } from '@coreui/icons'
+import { cilInfo, cilSearch } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
-import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
 import { useForm } from 'react-hook-form'
@@ -47,7 +40,7 @@ const Styles = styled.div`
     }
   }
 `
-const ToolList = () => {
+const ToolListAttrib = () => {
   const [Other, setOther] = React.useState([])
   const [visibleInfo, setVisibleInfo] = useState(false)
   const [transports, setTransports] = useState([])
@@ -56,7 +49,13 @@ const ToolList = () => {
   placeTypes['bankUnitsRepository'] = 'واحد بانک'
   placeTypes['branchRepository'] = 'شعبه'
   placeTypes['otherRepository'] = 'سایر'
+  const [toolGroups, setToolGroups] = useState([])
 
+  const handleChangeGroup = (newValue, actionMeta) => {
+    console.log('asdasd')
+    // changeGroup(newValue, actionMeta)
+  }
+  const formatCreateLabel = (inputValue) => `جدید: ${inputValue}`
   const refresh = () => {
     placeServices.allTools([]).then((response) => {
       setOther(response)
@@ -150,46 +149,59 @@ const ToolList = () => {
     defaultValues: {},
   })
   const onSubmit = (data) => {
+    alert('hi hadi')
     console.log(data)
   }
   return (
     <>
-      <CModal size="lg" visible={visibleInfo} onClose={() => setVisibleInfo(false)}>
-        <CModalHeader onClose={() => setVisibleInfo(false)}>
-          <CModalTitle>انتقالات</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CTable>
-            <CTableHead color="light">
-              <CTableRow>
-                <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                <CTableDataCell>نوع</CTableDataCell>
-                <CTableDataCell>محل</CTableDataCell>
-                <CTableDataCell>نام</CTableDataCell>
-                <CTableDataCell>تاریخ</CTableDataCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {transports.map((item, index) => {
-                return (
-                  <CTableRow key={index}>
-                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                    <CTableDataCell>{item.type === 'RECEIPT' ? 'رسید' : 'حواله'}</CTableDataCell>
-                    <CTableDataCell>{placeTypes[item.model]}</CTableDataCell>
-                    <CTableDataCell>{item.name}</CTableDataCell>
-                    <CTableDataCell>
-                      {moment(item.date, 'YYYY-M-D HH:mm:ss').endOf('jMonth').format('jYYYY/jM/jD')}
-                    </CTableDataCell>
-                  </CTableRow>
-                )
-              })}
-            </CTableBody>
-          </CTable>
-        </CModalBody>
-      </CModal>
       <CCard className="mb-4">
         <CCardHeader>لیست کالا</CCardHeader>
         <CCardBody>
+          <CRow className="form-filter">
+            <CForm onSubmit={handleSubmit(onSubmit)} className="form">
+              <CRow className="row">
+                <CCol md={2}>
+                  <CFormInput id="serial" placeholder="سریال" {...register('serial')} />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput id="serial" placeholder="آمایش" {...register('serial')} />
+                </CCol>
+                <CCol md={2}>
+                  <CFormInput id="serial" placeholder="پلاک" {...register('serial')} />
+                </CCol>
+                <CCol md={2}>
+                  <CFormSelect
+                    id="categoryKala"
+                    aria-label="دسته بندی کالا"
+                    {...register('categoryKala')}
+                    options={[
+                      { label: 'دسته بندی کالا...', value: '' },
+                      { label: 'رایانه ای', value: 'رایانه ای' },
+                      { label: 'اداری', value: 'اداری' },
+                    ]}
+                  />
+                </CCol>
+                <CCol md={2}>
+                  <CFormSelect
+                    id="typeKala"
+                    aria-label="نوع کالا"
+                    {...register('typeKala')}
+                    options={[
+                      { label: 'نوع کالا...', value: '' },
+                      { label: 'فرسوده', value: 'فرسوده' },
+                      { label: 'امانی ', value: 'امانی' },
+                      { label: 'اداری', value: 'اداری' },
+                    ]}
+                  />
+                </CCol>
+                <CCol md={1}>
+                  <CButton color="default" type="submit">
+                    <CIcon icon={cilSearch} size="sm" />
+                  </CButton>
+                </CCol>
+              </CRow>
+            </CForm>
+          </CRow>
           <CRow>
             <Styles>
               <CustomTable
@@ -207,4 +219,4 @@ const ToolList = () => {
   )
 }
 
-export default ToolList
+export default ToolListAttrib
