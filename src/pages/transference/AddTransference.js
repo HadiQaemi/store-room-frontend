@@ -76,7 +76,7 @@ const AddTransference = () => {
     })
   }
   const changeGroup = (newValue, actionMeta) => {
-    // console.log(newValue.value)
+    console.log(groupKala)
     setGroupKala(newValue.value)
     placeServices.getToolModels(newValue.value).then((data) => {
       let models = []

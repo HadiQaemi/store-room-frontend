@@ -6,8 +6,6 @@ import {
   CCardHeader,
   CCol,
   CForm,
-  CFormInput,
-  CFormLabel,
   CModal,
   CModalBody,
   CModalHeader,
@@ -28,7 +26,6 @@ import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
-import CustomSelect2 from 'src/customComponents/custom-select/CustomSelect2'
 import { useForm } from 'react-hook-form'
 import { CustomDate } from 'src/customComponents/custom-date/CustomDate'
 

@@ -49,12 +49,12 @@ const ToolListAttrib = () => {
   placeTypes['bankUnitsRepository'] = 'واحد بانک'
   placeTypes['branchRepository'] = 'شعبه'
   placeTypes['otherRepository'] = 'سایر'
-  const [toolGroups, setToolGroups] = useState([])
+  // const [toolGroups, setToolGroups] = useState([])
 
-  const handleChangeGroup = (newValue, actionMeta) => {
-    console.log('asdasd')
-    // changeGroup(newValue, actionMeta)
-  }
+  // const handleChangeGroup = (newValue, actionMeta) => {
+  //   console.log('asdasd')
+  //   // changeGroup(newValue, actionMeta)
+  // }
   const formatCreateLabel = (inputValue) => `جدید: ${inputValue}`
   const refresh = () => {
     placeServices.allTools([]).then((response) => {

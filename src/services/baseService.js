@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { SERVER_ADDRESS } from 'src/constants/configs'
 import { Toast, toastAnyWhere } from 'src/constants/functions'
-import Swal from 'sweetalert2'
 import { authenticationServices } from './authenticationServices'
 
 export default async function baseService(url, method, data) {

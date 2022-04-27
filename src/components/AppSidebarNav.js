@@ -29,7 +29,7 @@ export const AppSidebarNav = ({ items, user }) => {
     if (role !== undefined) {
       if (role === 'admin') {
         isAdmin = 1
-        if (role == info.type) {
+        if (role === info.type) {
           return (
             <Component
               {...(rest.to && !rest.items && { component: NavLink, activeClassName: 'active' })}
@@ -63,7 +63,7 @@ export const AppSidebarNav = ({ items, user }) => {
     if (role !== undefined) {
       if (role === 'admin') {
         isAdmin = 1
-        if (role == info.type) {
+        if (role === info.type) {
           return (
             <Component
               idx={String(index)}

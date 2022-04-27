@@ -24,7 +24,6 @@ import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
 import moment from 'moment-jalaali'
 import { fireSwalConfirmation } from 'src/services/utils'
 import ReactTooltip from 'react-tooltip'
-import { useForm } from 'react-hook-form'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -146,9 +145,9 @@ const ToolList = () => {
     },
   ]
   const data = [...Other]
-  const { register, handleSubmit, control } = useForm({
-    defaultValues: {},
-  })
+  // const { register, handleSubmit, control } = useForm({
+  //   defaultValues: {},
+  // })
   const onSubmit = (data) => {
     console.log(data)
   }

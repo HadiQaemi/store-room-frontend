@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilAlarm, cilPen, cilPlus, cilTrash, cilX } from '@coreui/icons'
+import { cilAlarm, cilPen, cilTrash, cilX } from '@coreui/icons'
 import { placeServices } from 'src/services/placeServices'
 import styled from 'styled-components'
 import { CustomTable } from 'src/customComponents/customGrid/CustomTable'
